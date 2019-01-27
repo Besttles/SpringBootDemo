@@ -11,6 +11,8 @@ import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomi
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 
+import com.xiaour.spring.boot.startUpService.StartUpService;
+
 /**
  * 
  * @ClassName Application
@@ -32,6 +34,18 @@ public class Application  extends SpringBootServletInitializer implements Embedd
 	 * @param args
 	 */
     public static void main(String ... args){
+        //预先加载组件
+    	try {
+    		boolean isStart = StartUpService.chechService();
+    		if(isStart) {
+    			System.out.println("已经加载组件");
+    		}else {
+    			System.out.println("未加载组件");
+    		}
+		} catch (Exception e) {
+			e.getMessage();
+		}
+    	
         SpringApplication.run(Application.class, args);
     }
 

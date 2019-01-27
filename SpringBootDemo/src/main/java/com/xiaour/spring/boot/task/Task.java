@@ -29,23 +29,27 @@ public class Task {
 		int bufferSize = 1024;
 		long beginTime = System.currentTimeMillis();
 		ExecutorService executor=Executors.newFixedThreadPool(4);
-		
+		//定义生产者
+		//disraptor的执行是在单线程实现的队列形式的
 		Disruptor<TradeTransaction> disruptor=new Disruptor<TradeTransaction>(new EventFactory<TradeTransaction>() {
 			@Override
 			public TradeTransaction newInstance() {
 				return new TradeTransaction();
 			}
 		}, bufferSize, executor, ProducerType.MULTI, new BusySpinWaitStrategy());
-		
+	    //消费者的执行
 		EventHandlerGroup<TradeTransaction> handlerGroup=disruptor.handleEventsWith(new TradeTransactionVasConsumer(),new TradeTransactionInDBHandler());
-	
+	    
 		TradeTransactionJMSNotifyHandler jmsConsumer=new TradeTransactionJMSNotifyHandler();
 		//声明在C1,C2完事之后执行JMS消息发送操作 也就是流程走到C3
 		handlerGroup.then(jmsConsumer);
 		
 		disruptor.start();
+		//CountDownLatch
 		CountDownLatch latch = new CountDownLatch(1);
 		executor.submit(new TradeTransactionPublisher(latch, disruptor));
+		executor.submit(new TradeTransactionPublisher(latch, disruptor));
+
 		latch.await();//等待生产者完事.
 		disruptor.shutdown();
 		executor.shutdown();
