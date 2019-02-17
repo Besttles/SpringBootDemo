@@ -37,9 +37,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-/**
- * Created by xiaour on 2017/4/19.
- */
+
 @RestController
 @RequestMapping(value="/test")
 public class TestCtrl {
@@ -56,13 +54,29 @@ public class TestCtrl {
     public String index() throws InterruptedException{
         return "hello world";
     }
+    @Autowired
+    private ThreadLocal<Object> local;
     
     @RequestMapping(value = "/welcome")
     public ModelAndView test(ModelAndView mv) throws InterruptedException {
+    	local.set("3");
+    	System.out.println(local.get());
+    	local.remove();
+    	System.out.println(local.get());
         mv.setViewName("/welcome");
         mv.addObject("hallo","欢迎使用Thymeleaf!");
         return mv;
     }
+    @RequestMapping(value = "/welcome1")
+    public ModelAndView test1(ModelAndView mv) throws InterruptedException {
+
+    	System.out.println(local.get());
+    	local.remove();
+        mv.setViewName("/welcome");
+        mv.addObject("hallo","欢迎使用Thymeleaf!");
+        return mv;
+    }
+    
     /**
      * 向redis存储值
      * @param key
