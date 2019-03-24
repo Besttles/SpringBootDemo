@@ -7,7 +7,7 @@ import com.lmax.disruptor.dsl.Disruptor;
 public class TradeTransactionPublisher implements Runnable{
 	Disruptor<TradeTransaction> disruptor;
 	private CountDownLatch latch;
-	private static int LOOP=100;//模拟一千万次交易的发生
+	private static int LOOP=1000000;//模拟一千万次交易的发生
 	
 	public TradeTransactionPublisher(CountDownLatch latch,Disruptor<TradeTransaction> disruptor){
 			this.disruptor = disruptor;

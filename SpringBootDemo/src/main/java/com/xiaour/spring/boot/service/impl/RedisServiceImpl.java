@@ -17,7 +17,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by xiaour.github.com on 2017/11/8.
+ * redis 的工具类
  */
 @Service("redisService")
 @Transactional(rollbackFor = Exception.class)
