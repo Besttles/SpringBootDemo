@@ -8,9 +8,9 @@ public abstract class AbstractZookeeperLock implements Lock{
 	//桥接模式  打印日志
 //	private static Logger logger = new LoggerFactory.getLogger(AbstractZookeeperLock.class);
 	//服务器地址
-	private static String host = "";
+	private static String host = "127.0.0.1";
 	//服务器的端口
-	private static String port = "2399";
+	private static String port = "2181";
 	//反问的节点地址
 	private static String address = "/zkclient";
 	/**

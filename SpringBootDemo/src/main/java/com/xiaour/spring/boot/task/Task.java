@@ -23,7 +23,7 @@ import com.xiaour.spring.boot.disruptor.TradeTransactionVasConsumer;
 @EnableScheduling // 启用定时任务
 public class Task {
 	
-    @Scheduled(cron="0 0/1 * * * ?")
+    //@Scheduled(cron="0 0/1 * * * ?")
 	public void run() throws InterruptedException{
 		System.out.println("Scheduled Running...");
 		int bufferSize = 1024;

@@ -33,4 +33,16 @@ public class UserInfo {
 		this.age = age;
 	}
 
+	public UserInfo() {
+		super();
+	}
+
+	public UserInfo(Integer id, String name, String age) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.age = age;
+	}
+
+	
 }

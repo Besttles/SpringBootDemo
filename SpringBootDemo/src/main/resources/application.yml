@@ -46,7 +46,10 @@ spring:
           content:
             enabled: true
             paths: /**
-   
+#    data:
+#      elasticsearch:
+#        cluster-nodes: 192.168.191.2:9300
+        
 mybatis:
   type-aliases-package: com.xiaour.spring.boot.mapper
   mapper-locations: classpath:mapper/*.xml

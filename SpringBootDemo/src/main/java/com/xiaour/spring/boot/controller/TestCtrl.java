@@ -23,8 +23,10 @@ import com.xiaour.spring.boot.disruptor.TradeTransactionInDBHandler;
 import com.xiaour.spring.boot.disruptor.TradeTransactionJMSNotifyHandler;
 import com.xiaour.spring.boot.disruptor.TradeTransactionPublisher;
 import com.xiaour.spring.boot.disruptor.TradeTransactionVasConsumer;
+import com.xiaour.spring.boot.elasticsearch.JestUtil;
 import com.xiaour.spring.boot.entity.UserInfo;
 import com.xiaour.spring.boot.mapper.UserInfoMapper;
+import com.xiaour.spring.boot.serverImpl.ZkPandaLock;
 import com.xiaour.spring.boot.utils.JsonUtil;
 
 import java.util.ArrayList;
@@ -61,6 +63,42 @@ public class TestCtrl {
     public ModelAndView test(ModelAndView mv) throws InterruptedException {
     	local.set("3");
     	System.out.println(local.get());
+    	
+//    	List<Object> list = new ArrayList<Object>();
+//		list.add(new UserInfo(1, "lili", "24"));
+//		list.add(new UserInfo(2, "huahua", "24"));
+//		list.add(new UserInfo(3, "luoluo", "24"));
+//		list.add(new UserInfo(4, "fangfang", "24"));
+//		JestUtil jest = new JestUtil();
+//		try {
+//			jest.insertUtil(jest.getClient(), "userindex", "user");
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+    	
+    	ExecutorService executor=Executors.newFixedThreadPool(20);
+    	for(int i = 0 ; i<20 ;i++) {
+    		executor.execute(new ZookeeperRunner());    		
+    	}
+//		for (int i = 0; i < 10; i++) {
+//            new Thread() {
+//                public void run() {
+//                    try {
+//                    	ZkPandaLock zkPandaLock = new ZkPandaLock();
+//                    	zkPandaLock.connectZooKeeper("127.0.0.1:2181", "jason");
+//                    	zkPandaLock.lock();
+//                    	System.out.println(Thread.currentThread().getName()+"在做事，做完就释放锁");
+//                    	Thread.sleep(1000);
+//                    	System.out.println(Thread.currentThread().getName()+"我做完事情了");
+//                    	zkPandaLock.releaseLock();
+//                    	
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }.start();
+//        }
+    	
     	local.remove();
     	System.out.println(local.get());
         mv.setViewName("/welcome");

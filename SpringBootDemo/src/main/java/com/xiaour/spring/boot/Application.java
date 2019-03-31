@@ -45,7 +45,6 @@ public class Application  extends SpringBootServletInitializer implements Embedd
 		} catch (Exception e) {
 			e.getMessage();
 		}
-    	
         SpringApplication.run(Application.class, args);
     }
 
